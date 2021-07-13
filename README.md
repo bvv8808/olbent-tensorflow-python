@@ -12,9 +12,10 @@
 - 예측된 결과를 DB에 저장합니다
 - DB에 저장하기 전에 필터링을 진행하는데 필터 방식은 프로그램 실행 시 매개변수로 입력할 수 있습니다
   - `item`: 각 아이템마다 상위 10개씩만 취합니다
-  - `user`: 각 연령+성별마다 상위 10개씩만 취합니다
-  - `매개변수 미입력 시, 또는 잘못된 매개변수 입력 시`: 확률이 20%이하인 예측결과를 제합니다
-  - 스크립트 실행 예시)) `python makePrediction.py item`, `python makePrediction.py user`, `python makePrediction.py`
+  - `user`(_default_): 각 연령+성별마다 상위 10개씩만 취합니다
+  - `top` : 확률이 20%이하인 예측결과를 제합니다
+  - `매개변수 미입력 시, 또는 잘못된 매개변수 입력 시`: 각 연령+성별마다 상위 10개씩만 취합니다
+  - 스크립트 실행 예시)) `python makePrediction.py item`, `python makePrediction.py user`, `python makePrediction.py top`, `python makePrediction.py top`
 
 ### 유의 사항
 

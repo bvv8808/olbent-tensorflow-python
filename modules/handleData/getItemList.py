@@ -1,5 +1,4 @@
-import os
-print(os.getcwd())
+
 
 def getItemList():
     itemList = []
@@ -8,11 +7,15 @@ def getItemList():
         line = f.readline()
         if not line:
             break
+        if line.count('id,category,')==1:
+            continue
 
-        itemList.append(line.replace('\n', ''))
+        # print(line)
+        l = line.replace('\n', '')
+        arr = l.split(',')
+        # # id, category, price
+        itemList.append((arr[0], float(arr[1]), arr[2]))
 
     f.close()
 
     return itemList
-
-getItemList()

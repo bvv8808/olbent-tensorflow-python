@@ -1,24 +1,22 @@
-from .getItemMap import getItemMap
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
 
-def getTrainDataSet(itemMap:dict=getItemMap()):
+def getTrainDataSet():
     data = pd.read_csv('./data/initial_dataset.csv')
-    data.pop('action_hour')
+    # data.pop('item_id')
+    data['age'] = data['age'].map(lambda x: x/100)
+    data['price'] = data['price'].map(lambda x: x/1000)
     labels = data.pop('action')
     
-    # print(data['item_id'])
-
-    data['item_id'] = data['item_id'].map(lambda id: itemMap[str(id)])
 
     X = data
     y = labels.values
-
-
     return (X, y)
 
-def getPredictDataSet(itemMap:dict):
+def getPredictDataSet():
     data = pd.read_csv('./data/predict_dataset.csv')
-    data['item_id'] = data['item_id'].map(lambda id: itemMap[str(id)])
-    return data
+    data['age'] = data['age'].map(lambda x: x/100)
+    data['price'] = data['price'].map(lambda x: x/1000)
+    ids = data.pop('item_id')
+    return (data, ids)

@@ -1,23 +1,21 @@
 from tensorflow import keras
 import pandas as pd
 from ..handleData.getDataset import getPredictDataSet
-from ..handleData.getItemMap import getItemMap
 
-
-def predictAction(model: keras.Model=None, itemMap: dict=getItemMap()):
+def predictAction(model: keras.Model=None):
 
   if not model:
     model = keras.models.load_model('./saved_model', compile=True)
   # 정수인코딩한 item_id를 디코딩하기 위한 itemMap
   
 
-  dataToPredict = getPredictDataSet(itemMap)
+  (dataToPredict, itemIds) = getPredictDataSet()
+
+  # print(dataToPredict[:20])
 
   prediction = model.predict(dataToPredict)
   
-  reversedItemMap = {}
-  for k in itemMap:
-    reversedItemMap[itemMap[k]] = k
+  # print(prediction[:20])
 
   resultList = []
   for i in range(len(dataToPredict)):
@@ -25,12 +23,13 @@ def predictAction(model: keras.Model=None, itemMap: dict=getItemMap()):
       p = prediction[i]
 
       result = {
-        'age': currentDataRow['user_age'],
-        'gender': currentDataRow['user_gender'],
-        'item': reversedItemMap[currentDataRow['item_id']],
+        'age': currentDataRow['age']*100,
+        'gender': currentDataRow['gender'],
+        'item': itemIds[i],
         'action': p[0]
       }
       resultList.append(result)    
   
 
   return resultList
+  # return []

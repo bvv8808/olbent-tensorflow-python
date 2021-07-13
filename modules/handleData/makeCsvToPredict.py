@@ -7,12 +7,12 @@ def makeCsvToPredict(items: list = []):
         
         f = open("./data/predict_dataset.csv", 'w')
 
-        f.write('user_age,user_gender,item_id\n')
+        f.write('age,gender,category,price,item_id\n')
 
         for age in range(10, 100):
             for gender in range(0, 2):
                 for item in items:
-                    f.write("{age},{gender},{item}\n".format(age=age, gender=gender, item=item))
+                    f.write("{age},{gender},{ca1},{price},{id}\n".format(age=age, gender=gender, ca1=item[1], price=item[2], id=item[0]))
 
         f.close()
 
