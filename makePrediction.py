@@ -21,12 +21,11 @@ predictResult = predictAction()
 ## 필터링
 savingList = []
 if len(sys.argv) > 1: # 필터 모드 파라미터가 있을 시 각 모드에 맞는 필터를 적용하여 저장
-    filterMode = sys.argv[1] # item | user
+    filterMode = sys.argv[1] # item | user | top
     savingList = filterPrediction(filterMode, predictResult)
 else: # 필터 모드 파라미터가 없을 시 확률 0.2 이하를 제외하고 저장
-    for p in predictResult:
-            if p['action'] > 0.2:
-                savingList.append(p)
+    savingList = filterPrediction('user', predictResult)
+    
 
 ## DB에 저장
 savePrediction(savingList)
